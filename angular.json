@@ -17,17 +17,37 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "tsConfig": "./tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -35,14 +55,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": false,
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
+              "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": false
             }
           }
         },
@@ -52,6 +72,9 @@
             "browserTarget": "demo:build"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "demo:build:development"
+            },
             "production": {
               "browserTarget": "demo:build:production"
             }
@@ -72,7 +95,7 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "styles.css"
+              "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
