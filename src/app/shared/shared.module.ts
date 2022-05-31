@@ -4,6 +4,7 @@ import { TableComponent } from './components/table/table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from '@apps/shared/services/http.service';
 import { ModalComponent } from '@apps/shared/components/modal/modal.component';
+import {RxService} from "@apps/shared/services/rx.service";
 
 @NgModule({
   declarations: [TableComponent, ModalComponent],
@@ -11,6 +12,6 @@ import { ModalComponent } from '@apps/shared/components/modal/modal.component';
     CommonModule, HttpClientModule
   ],
    exports: [TableComponent],
-    providers: [HttpService]
+    providers: [HttpService, RxService]
 })
 export class SharedModule { }

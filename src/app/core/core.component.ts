@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '@apps/shared/services/http.service';
-import {map, take} from 'rxjs';
+import { map, Observable, race, take} from 'rxjs';
+import {ApiResponse} from "@apps/shared/models/ApiResponse";
+import {RxService} from "@apps/shared/services/rx.service";
 
 @Component({
   selector: 'app-core',
@@ -10,17 +12,17 @@ import {map, take} from 'rxjs';
 export class CoreComponent implements OnInit {
   POKE_URL = 'https://pokeapi.co/api/v2/pokemon/';
   listPoke: any[];
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService, private rxservice: RxService) { }
 
   ngOnInit(): void {
     this.getListPoke();
   }
 
   getListPoke() {
-    this.http.get(this.POKE_URL, '?offset=0&limit=20')
-        .pipe(
-            map((el) => el.results),
-            take(5)
-        ).subscribe((res) => this.listPoke = res);
+    let arrObs:Array<Observable<ApiResponse>> = [];
+    for(let i of [1,2,3,4,5]) {
+      arrObs.push(this.http.get(this.POKE_URL, 'offset='+i*20+'&limit=20'));
+    }
+    this.rxservice.race(arrObs).subscribe((res) => this.listPoke = res );
   }
 }

@@ -11,7 +11,7 @@ export class HttpService implements HttpInterface {
     }
 
     public get(url: string, params: any): Observable<ApiResponse> {
-        return this.http.get<ApiResponse>(url);
+        return this.http.get<ApiResponse>(url + '?' + params);
     }
 
     public post(url: string, body: any) {
